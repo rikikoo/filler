@@ -6,21 +6,38 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/08 18:26:20 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/09 10:25:37 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 
-void	get_player(char *str, t_game *game)
+static void	init_game(t_game *game)
 {
-	if (ft_strnstr(str, PLAYER_NAME, ft_strlen(str)))
+	game->by = 0;
+	game->bx = 0;
+	game->c = 0;
+	game->ty = 0;
+	game->tx = 0;
+}
+
+static int	get_player_character(t_game *game)
+{
+	char	*str;
+	int		ret;
+
+	ret = get_next_line(0, &str);
+	if (ret == -1)
+		return (-1);
+	get_player_character(str, game);
+	free(str);
+	if (ft_strchr(str, '1'))
 		game->c = 'O';
 	else
 		game->c = 'X';
 }
 
-void	get_dimensions(char *str, t_game *game)
+static int	get_dimensions(char *str, t_game *game)
 {
 	int		i;
 	int		j;
@@ -31,47 +48,46 @@ void	get_dimensions(char *str, t_game *game)
 	while (!ft_isdigit(str[i]) && str[i] != 0)
 		i++;
 	if (str[i] == '\0')
-		return ;
+		return (-1);
 	j = i;
 	while (ft_isdigit(str[i]))
 		i++;
 	if (!(rows = ft_strsub(str, j, i - j)))
-		return ;
+		return (-1);
 	i++;
 	j = i;
 	while (ft_isdigit(str[i]))
 		i++;
 	if (!(columns = ft_strsub(str, j, i - j)))
-		return ;
+		return (-1);
 	game->y = ft_atoi(rows);
 	game->x = ft_atoi(columns);
+	ft_liberator(3, &str, &rows, &columns);
 }
 
-void	read_instructions(t_game *game)
+int			main(void)
 {
-	char	**inst;
-	int		i;
-
-	if (!(inst = (char **)malloc(sizeof(char *) * 4)))
-		return ;
-	inst[3] = NULL;
-	i = 0;
-	while (i <= 2)
-	{
-		if ((get_next_line(0, &inst[i])) <= 0)
-			return ;
-		i++;
-	}
-	get_player(inst[0], game);
-	get_dimensions(inst[2], game);
-}
-
-int		main(void)
-{
-	char	**board;
 	t_game	*game;
+	char	*str;
 
 	if (!(game = (t_game *)malloc(sizeof(t_game))))
 		return (-1);
-	read_instructions(game);
+	init_game(game);
+	if (get_player_character(game) == -1)
+		return (-1);
+	while (1)
+	{
+		if (game->by = 0)
+		{
+			if (get_next_line(0, &str) == -1)
+				return (-1);
+			if (get_dimensions(str, game) == -1)
+				return (-1);
+		}
+		if (read_board(game) == -1)
+			return (-1);
+		place_piece(game);
+	}
+	free(game);
+	return (0);
 }
