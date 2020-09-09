@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/09 15:47:34 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/09 16:23:19 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int			main(void)
 		return (0);
 	if (get_dimensions(line, game, 1) == -1)
 		return (-1);
+// TODO: don't pass line to read_board, because it is free'd in get_dimensions
 	while (1)
 	{
 		board = read_board(game, line);

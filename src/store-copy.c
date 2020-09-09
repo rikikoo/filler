@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analyze.c                                          :+:      :+:    :+:   */
+/*   store-copy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkyttala <rkyttala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:08:03 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/09 16:02:34 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/09 16:15:47 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char		**read_token(t_game *game)
 		return (0);
 	token[game->ty] = NULL;
 	i = 0;
-	while(ret = get_next_line(0, &token[i]))
+	while((ret = get_next_line(0, &token[i])))
 	{
 		if (ret == -1)
 			return (0);
@@ -112,12 +112,12 @@ char		**read_board(t_game *game, char *line)
 	}
 	else
 		i = 0;
-	while (ret = get_next_line(0, &board[i]))
+	while ((ret = get_next_line(0, &board[i])))
 	{
 		if (ret == -1)
 			return (0);
 		i++;
-		if (i == game->y + 1)
+		if (i == game->by + 1)
 			break ;
 	}
 	return (board);
