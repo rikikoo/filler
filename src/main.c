@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: rkyttala <rkyttala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/09 12:09:18 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/09 15:47:34 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ static void	init_game(t_game *game)
 */
 static int	get_player_character(t_game *game)
 {
-	char	*str;
+	char	*line;
 	int		ret;
 
-	ret = get_next_line(0, &str);
+	ret = get_next_line(0, &line);
 	if (ret == -1)
 		return (-1);
-	if (ft_strchr(str, '1'))
+	if (ft_strchr(line, '1'))
 		game->c = 'O';
 	else
 		game->c = 'X';
-	free(str);
+	free(line);
 	return (0);
 }
 
@@ -59,27 +59,24 @@ static int	get_player_character(t_game *game)
 int			main(void)
 {
 	t_game	*game;
-	char	*str;
+	char	*line;
+	char	**board;
+	char	**token;
 
 	if (!(game = (t_game *)malloc(sizeof(t_game))))
 		return (-1);
 	init_game(game);
 	if (get_player_character(game) == -1)
 		return (-1);
+	if (get_next_line(0, &line) == -1)
+		return (0);
+	if (get_dimensions(line, game, 1) == -1)
+		return (-1);
 	while (1)
 	{
-		if (game->bx = 0)
-		{
-			if (get_next_line(0, &str) == -1)
-				return (-1);
-			if (get_dimensions(str, game, 1) == -1)
-				return (-1);
-		}
-		if (read_board(game) == -1)
-			return (-1);
-		if (read_token(game) == -1)
-			return (-1);
-		place_piece(game);
+		board = read_board(game, line);
+		token = read_token(game);
+		find_placement(game, board, token);
 	}
 	free(game);
 	return (0);
