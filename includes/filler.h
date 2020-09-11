@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:11:48 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/09 16:15:29 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/11 18:23:39 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,16 @@ typedef struct	s_gamedata
 	int		tx;
 }				t_game;
 
-char			**read_board(t_game *game, char *line);
-char			**read_token(t_game *game);
+typedef struct	s_pieces
+{
+	int				x;
+	int				y;
+	char			c;
+	struct s_pieces	*next;
+}				t_piece;
+
 int				get_dimensions(char *line, t_game *game, int board);
-void			find_placement(t_game *game, char **board, char **token);
+char			**read_board(t_game *game);
+char			**read_token(t_game *game);
+t_piece			*scan_token(char **token, char c);
 #endif

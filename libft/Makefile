@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+         #
+#    By: rkyttala <rkyttala@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/22 11:43:31 by rkyttala          #+#    #+#              #
-#    Updated: 2020/09/07 19:29:21 by rkyttala         ###   ########.fr        #
+#    Updated: 2020/09/11 15:20:02 by rkyttala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

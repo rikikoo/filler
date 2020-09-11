@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/09 16:23:19 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/11 18:16:12 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,14 @@ int			main(void)
 	if (get_player_character(game) == -1)
 		return (-1);
 	if (get_next_line(0, &line) == -1)
-		return (0);
+		return (-1);
 	if (get_dimensions(line, game, 1) == -1)
 		return (-1);
-// TODO: don't pass line to read_board, because it is free'd in get_dimensions
 	while (1)
 	{
-		board = read_board(game, line);
+		board = read_board(game);
 		token = read_token(game);
-		find_placement(game, board, token);
+		place_piece(game, board, scan_token(token, game->c));
 	}
 	free(game);
 	return (0);

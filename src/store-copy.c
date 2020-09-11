@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:08:03 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/09 16:15:47 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/11 15:40:49 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,17 +96,16 @@ char		**read_token(t_game *game)
 ** on subsequent calls the arrays are over-written by the new board.
 ** the copied board is returned for later analysis.
 */
-char		**read_board(t_game *game, char *line)
+char		**read_board(t_game *game)
 {
 	char	**board;
 	int		i;
 	int		ret;
 
-	if (!board)
+	if (!game->ty || !game->tx)
 	{
 		if (!(board = (char **)malloc(sizeof(char *) * game->by + 2)))
 			return (0);
-		board[0] = line;
 		board[game->by + 1] = NULL;
 		i = 1;
 	}
