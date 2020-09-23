@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store-copy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkyttala <rkyttala@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:08:03 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/11 15:40:49 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/17 14:15:21 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	store_dimensions(t_game *game, char *rows, char *columns, int board)
 ** The format of the line is always "Plateau Y X\n" or "Piece Y X\n",
 ** where Y is row count and X is column count, thus reading only the digits
 ** from the line will get us our dimensions easily.
+** Function's 3rd parameter "board" is set on call to true if we want to store
+** the board's dimensions and false for the token's dimensions.
 */
 int			get_dimensions(char *line, t_game *game, int board)
 {
@@ -56,6 +58,30 @@ int			get_dimensions(char *line, t_game *game, int board)
 		return (-1);
 	store_dimensions(game, rows, columns, board);
 	ft_liberator(3, &line, &rows, &columns);
+	return (0);
+}
+
+/*
+** Since the only number on the first line that the filler sends to the player
+** is the player number, it's easy to check whether we are 1 or 2; 'O' or 'X'
+*/
+static int	get_player_character(t_game *game)
+{
+	char	*line;
+
+	if (get_next_line(0, &line) == -1)
+		return (-1);
+	if (ft_strchr(line, '1'))
+	{
+		game->p = 'O';
+		game->v = 'X';
+	}
+	else
+	{
+		game->p = 'X';
+		game->v = 'O';
+	}
+	free(line);
 	return (0);
 }
 
@@ -91,10 +117,10 @@ char		**read_token(t_game *game)
 }
 
 /*
-** on the first call of read_board a 2d char array is created according to
+** On the first call of read_board a 2d char array is created according to
 ** previously acquired dimensions and the array is filled with the given board.
-** on subsequent calls the arrays are over-written by the new board.
-** the copied board is returned for later analysis.
+** On subsequent calls the arrays are over-written by the new board.
+** The copied board is returned for later analysis.
 */
 char		**read_board(t_game *game)
 {

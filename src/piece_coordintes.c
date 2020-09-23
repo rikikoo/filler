@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calculate.c                                        :+:      :+:    :+:   */
+/*   piece_coordintes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkyttala <rkyttala@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 15:49:54 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/11 18:23:21 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/23 11:56:31 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ static t_piece	new_piece(char c)
 	return (piece);
 }
 
-static void		find_placement(t_piece *piece, char **token, char c)
+static void		find_coordinates(t_piece *piece, char **token, char c)
 {
 	int		x;
 	int		y;
 
 	x = 0;
 	y = 0;
-	while (token[y][x] != '\0')
+	while (token[y])
 	{
-		while(token[y])
+		while(token[y][x] != '\0')
 		{
 			if (token[y][x] == '*')
 			{
@@ -40,10 +40,10 @@ static void		find_placement(t_piece *piece, char **token, char c)
 					return ;
 				piece = piece->next;
 			}
-			y++;
+			x++;
 		}
-		x++;
-		y = 0;
+		y++;
+		x = 0;
 	}
 }
 
@@ -51,17 +51,9 @@ t_piece			*scan_token(char **token, char c)
 {
 	t_piece	*piece;
 	t_piece *head;
-	int		i;
 
 	piece = new_piece(c);
 	head = piece;
-	find_placement(piece, token, c);
-	i = 0;
-	while (token[i])
-	{
-		free(token[i]);
-		token[i] = NULL;
-		i++;
-	}
+	find_coordinates(piece, token, c);
 	return (head);
 }
