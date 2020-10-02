@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store-copy.c                                       :+:      :+:    :+:   */
+/*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:08:03 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/17 14:15:21 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/28 15:25:43 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			get_dimensions(char *line, t_game *game, int board)
 	if (!(columns = ft_strsub(line, j, i - j)))
 		return (-1);
 	store_dimensions(game, rows, columns, board);
-	ft_liberator(3, &line, &rows, &columns);
+	ft_liberator(2, &rows, &columns);
 	return (0);
 }
 
@@ -65,7 +65,7 @@ int			get_dimensions(char *line, t_game *game, int board)
 ** Since the only number on the first line that the filler sends to the player
 ** is the player number, it's easy to check whether we are 1 or 2; 'O' or 'X'
 */
-static int	get_player_character(t_game *game)
+int			get_player_character(t_game *game)
 {
 	char	*line;
 
@@ -101,6 +101,7 @@ char		**read_token(t_game *game)
 		return (0);
 	if (get_dimensions(line, game, 0) == -1)
 		return (0);
+	free(line);
 	if (!(token = (char **)malloc(sizeof(char *) * game->ty + 1)))
 		return (0);
 	token[game->ty] = NULL;
@@ -118,9 +119,9 @@ char		**read_token(t_game *game)
 
 /*
 ** On the first call of read_board a 2d char array is created according to
-** previously acquired dimensions and the array is filled with the given board.
+** previously acquired dimensions and the arrays are filled with what's given.
 ** On subsequent calls the arrays are over-written by the new board.
-** The copied board is returned for later analysis.
+** The copied board is returned for further analysis.
 */
 char		**read_board(t_game *game)
 {
@@ -128,15 +129,13 @@ char		**read_board(t_game *game)
 	int		i;
 	int		ret;
 
+	i = 0;
 	if (!game->ty || !game->tx)
 	{
 		if (!(board = (char **)malloc(sizeof(char *) * game->by + 2)))
 			return (0);
 		board[game->by + 1] = NULL;
-		i = 1;
 	}
-	else
-		i = 0;
 	while ((ret = get_next_line(0, &board[i])))
 	{
 		if (ret == -1)

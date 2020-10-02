@@ -6,11 +6,13 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 13:54:04 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/23 12:36:37 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/23 19:06:14 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		place_piece(t_game *game, int **w_board, char **board, char **token)
+#include "../includes/filler.h"
+
+int		place_piece(t_game *game, int **matrix, char **board, char **token)
 {
 
 }

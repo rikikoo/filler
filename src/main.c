@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/23 12:54:15 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/09/28 16:29:47 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,43 @@
 ** v = versus player character ('O' or 'X')
 ** ty = token rows
 ** tx = token columns
+** value = value of opposing player (default 1000) minus 1
 */
-static void	init_game(t_game *game)
+static int	init_game(t_game *game)
 {
+	char	*line;
+
 	game->by = 0;
 	game->bx = 0;
 	game->p = 0;
 	game->v = 0;
 	game->ty = 0;
 	game->tx = 0;
+	game->value = VERSUS - 1;
+	if (get_player_character(game) == -1)
+		return (-1);
+	if (get_next_line(0, &line) == -1)
+		return (-1);
+	if (get_dimensions(line, game, 1) == -1)
+		return (-1);
+	free(line);
+	return (0);
 }
 
 
-int		**init_matrix(t_game *game)
+static int	**init_matrix(t_game *game)
 {
 	int		y;
 	int		x;
 	int		**matrix;
 
 	y = 0;
-	if (!(matrix = (int **)malloc(sizeof(int*) * game->by)))
-		return (0);
+	if (!(matrix = (int **)malloc(sizeof(int *) * game->by)))
+		return (NULL);
 	while (y < game->by)
 	{
 		if (!(matrix[y] = (int *)malloc(sizeof(int) * game->bx)))
-			return (0);
+			return (NULL);
 		y++;
 	}
 	y = -1;
@@ -58,8 +70,7 @@ int		**init_matrix(t_game *game)
 }
 
 /*
-** - initialize game data struct
-** - read first two lines for player character and board dimensions
+** - initialize game data struct and get board dimensions
 ** - initialize an int representation of the board, filled with zeroes
 ** - in a loop, until the end of game:
 **	-- read board situation
@@ -69,28 +80,23 @@ int		**init_matrix(t_game *game)
 int			main(void)
 {
 	t_game	*game;
-	char	*line;
 	char	**board;
 	char	**token;
 	int		**matrix;
 
 	if (!(game = (t_game *)malloc(sizeof(t_game))))
 		return (-1);
-	init_game(game);
-	if (get_player_character(game) == -1)
+	if (init_game(game) == -1)
 		return (-1);
-	if (get_next_line(0, &line) == -1)
+	if (!(matrix = init_matrix(game)))
 		return (-1);
-	if (get_dimensions(line, game, 1) == -1)
-		return (-1);
-	matrix = init_matrix(game);
-	while (1)
-	{
+//	while (1)
+//	{
 		board = read_board(game);
 		token = read_token(game);
-		weigh_board(game, board, &matrix);
-		place_piece(game, matrix, board, token));
-	}
+		weigh_board(game, board, matrix);
+//		place_piece(game, matrix, board, token));
+//	}
 	free(game);
 	return (0);
 }

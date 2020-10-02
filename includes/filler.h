@@ -6,12 +6,14 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:11:48 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/17 14:13:37 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/02 22:03:46 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLER_H
 # define FILLER_H
+# define PLAYER -1
+# define VERSUS 1000
 
 # include <sys/types.h>
 # include <sys/uio.h>
@@ -29,8 +31,9 @@ typedef struct	s_gamedata
 	char	v;
 	int		ty;
 	int		tx;
+	int		value;
 }				t_game;
-
+/*
 typedef struct	s_pieces
 {
 	int				x;
@@ -38,9 +41,11 @@ typedef struct	s_pieces
 	char			c;
 	struct s_pieces	*next;
 }				t_piece;
-
+*/
 int				get_dimensions(char *line, t_game *game, int board);
 char			**read_board(t_game *game);
 char			**read_token(t_game *game);
-t_piece			*scan_token(char **token, char c);
+int				get_player_character(t_game *game);
+int				get_dimensions(char *line, t_game *game, int board);
+void			weigh_board(t_game *game, char **board, int **matrix);
 #endif
