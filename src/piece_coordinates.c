@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   piece_coordintes.c                                 :+:      :+:    :+:   */
+/*   piece_coordinates.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 15:49:54 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/23 11:56:31 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/17 14:18:29 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 
-static t_piece	new_piece(char c)
+static t_piece	new_cell(char c)
 {
 	if (!(piece = (t_piece *)malloc(sizeof(t_piece))))
 		return (0);
@@ -36,7 +36,7 @@ static void		find_coordinates(t_piece *piece, char **token, char c)
 			{
 				piece->x = x;
 				piece->y = y;
-				if (!(piece->next = new_piece(c)))
+				if (!(piece->next = new_cell(c)))
 					return ;
 				piece = piece->next;
 			}
@@ -52,7 +52,7 @@ t_piece			*scan_token(char **token, char c)
 	t_piece	*piece;
 	t_piece *head;
 
-	piece = new_piece(c);
+	piece = new_cell(c);
 	head = piece;
 	find_coordinates(piece, token, c);
 	return (head);

@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:11:48 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/10/02 22:03:46 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/17 19:32:41 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 # define FILLER_H
 # define PLAYER -1
 # define VERSUS 1000
-
+/*
 # include <sys/types.h>
 # include <sys/uio.h>
+*/
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -31,21 +32,23 @@ typedef struct	s_gamedata
 	char	v;
 	int		ty;
 	int		tx;
-	int		value;
+	int		py;
+	int		px;
 }				t_game;
-/*
-typedef struct	s_pieces
+
+typedef struct	s_piece
 {
 	int				x;
 	int				y;
 	char			c;
 	struct s_pieces	*next;
 }				t_piece;
-*/
-int				get_dimensions(char *line, t_game *game, int board);
+
 char			**read_board(t_game *game);
 char			**read_token(t_game *game);
 int				get_player_character(t_game *game);
-int				get_dimensions(char *line, t_game *game, int board);
-void			weigh_board(t_game *game, char **board, int **matrix);
+int				get_dimensions(char *line, t_game *game, int is_board);
+void			weigh_board(t_game *game, int **matrix, char **board);
+int				place_piece(t_game *game, int **matrix, char **token);
+t_piece			scan_token(char **token, char c);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/28 16:29:47 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/17 19:16:52 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 ** v = versus player character ('O' or 'X')
 ** ty = token rows
 ** tx = token columns
-** value = value of opposing player (default 1000) minus 1
+** val = highest value of all the weights surrounding the player
+** vy, vx = position of the aforementioned value on the int matrix
 */
 static int	init_game(t_game *game)
 {
@@ -31,7 +32,9 @@ static int	init_game(t_game *game)
 	game->v = 0;
 	game->ty = 0;
 	game->tx = 0;
-	game->value = VERSUS - 1;
+	game->py = 0;
+	game->px = 0;
+	game->dir = 0;
 	if (get_player_character(game) == -1)
 		return (-1);
 	if (get_next_line(0, &line) == -1)
@@ -75,6 +78,7 @@ static int	**init_matrix(t_game *game)
 ** - in a loop, until the end of game:
 **	-- read board situation
 **	-- read given token
+**	-- update int matrix according to opponent's position
 **	-- place token (i.e. calculate position of piece and output its coordinates)
 */
 int			main(void)
@@ -90,13 +94,15 @@ int			main(void)
 		return (-1);
 	if (!(matrix = init_matrix(game)))
 		return (-1);
-//	while (1)
-//	{
+	while (1)
+	{
 		board = read_board(game);
 		token = read_token(game);
-		weigh_board(game, board, matrix);
-//		place_piece(game, matrix, board, token));
-//	}
+		weigh_board(game, matrix, board);
+		if (!(place_piece(game, matrix, token)))
+			break ;
+	}
 	free(game);
+	free(matrix);
 	return (0);
 }

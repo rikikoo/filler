@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:08:03 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/28 15:25:43 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/04 19:29:05 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	store_dimensions(t_game *game, char *rows, char *columns, int board)
 ** Function's 3rd parameter "board" is set on call to true if we want to store
 ** the board's dimensions and false for the token's dimensions.
 */
-int			get_dimensions(char *line, t_game *game, int board)
+int			get_dimensions(char *line, t_game *game, int is_board)
 {
 	int		i;
 	int		j;
@@ -56,7 +56,7 @@ int			get_dimensions(char *line, t_game *game, int board)
 		i++;
 	if (!(columns = ft_strsub(line, j, i - j)))
 		return (-1);
-	store_dimensions(game, rows, columns, board);
+	store_dimensions(game, rows, columns, is_board);
 	ft_liberator(2, &rows, &columns);
 	return (0);
 }
