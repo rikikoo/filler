@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:39:51 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/10/10 14:24:35 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/23 19:51:01 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static void		mark_players(t_game *game, char **board, int **matrix)
 	}
 }
 
-void			weigh_board(t_game *game, int **matrix, char **board)
+void			fill_matrix(t_game *game, int **matrix, char **board)
 {
 	int		y;
 	int		x;

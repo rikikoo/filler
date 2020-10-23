@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:11:48 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/10/17 19:32:41 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/23 19:51:13 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ typedef struct	s_gamedata
 	char	v;
 	int		ty;
 	int		tx;
+	int		sum;
+	int		vy;
+	int		vx;
 	int		py;
 	int		px;
 }				t_game;
@@ -48,7 +51,7 @@ char			**read_board(t_game *game);
 char			**read_token(t_game *game);
 int				get_player_character(t_game *game);
 int				get_dimensions(char *line, t_game *game, int is_board);
-void			weigh_board(t_game *game, int **matrix, char **board);
+void			fill_matrix(t_game *game, int **matrix, char **board);
 int				place_piece(t_game *game, int **matrix, char **token);
 t_piece			scan_token(char **token, char c);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/10/17 19:16:52 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/23 20:04:45 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 ** v = versus player character ('O' or 'X')
 ** ty = token rows
 ** tx = token columns
-** val = highest value of all the weights surrounding the player
-** vy, vx = position of the aforementioned value on the int matrix
+** sum = highest value of where a piece successfully fit on the matrix
+** vy, vx = position of the first cell of the piece that landed on game->sum,
+**			i.e. the pos that we will place our piece on the board (- offset)
+** posy, posx = position while searching through the matrix for the highest sum
 */
 static int	init_game(t_game *game)
 {
@@ -32,9 +34,11 @@ static int	init_game(t_game *game)
 	game->v = 0;
 	game->ty = 0;
 	game->tx = 0;
-	game->py = 0;
-	game->px = 0;
-	game->dir = 0;
+	game->sum = 0;
+	game->vy = 0;
+	game->vx = 0;
+	game->posy = 0;
+	game->posx = 0;
 	if (get_player_character(game) == -1)
 		return (-1);
 	if (get_next_line(0, &line) == -1)
@@ -98,7 +102,7 @@ int			main(void)
 	{
 		board = read_board(game);
 		token = read_token(game);
-		weigh_board(game, matrix, board);
+		fill_matrix(game, matrix, board);
 		if (!(place_piece(game, matrix, token)))
 			break ;
 	}
