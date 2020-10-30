@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/10/23 20:04:45 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/30 19:48:30 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,7 @@ int			main(void)
 		board = read_board(game);
 		token = read_token(game);
 		fill_matrix(game, matrix, board);
-		if (!(place_piece(game, matrix, token)))
-			break ;
+		place_piece(game, matrix, token);
 	}
 	free(game);
 	free(matrix);
