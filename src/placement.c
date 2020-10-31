@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 19:11:55 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/10/30 19:46:46 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/31 15:00:27 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int		get_sum(t_game *game, int **matrix, t_piece *piece)
 	return (sum);
 }
 
-static int		find_highest_sum(t_game *game, int **matrix, t_piece *coords)
+static void		find_highest_sum(t_game *game, int **matrix, t_piece *coords)
 {
 	int		sum;
 	t_piece	*head;
@@ -88,7 +88,7 @@ int				place_piece(t_game *game, int **matrix, char **token)
 	game->posy = -1;
 	game->posx = -1;
 	find_highest_sum(game, matrix, coords);
-	print_coordinates(piece);
+	print_coordinates(game, piece);
 	/*
 	** free piece & token, delete matrix content
 	*/

@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 15:49:54 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/10/30 18:23:52 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/31 14:44:14 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void		find_coordinates(t_piece *piece, char **token, char c)
 	y = 0;
 	while (token[y])
 	{
-		while(token[y][x] != '\0')
+		while (token[y][x] != '\0')
 		{
 			if (token[y][x] == '*')
 			{

@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 13:54:04 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/10/13 19:21:47 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/10/31 14:58:29 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static void		check_surroundings(t_game *g, int **mat, int y, int x)
 ** goes through all the surrounding (above, below, left and right) cells of
 ** the player-filled cells
 */
+
 static void	find_likely_pos(t_game *game, int **matrix)
 {
 	int		y;
