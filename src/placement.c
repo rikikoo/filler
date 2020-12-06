@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 19:11:55 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/06 21:04:17 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/06 22:29:41 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,12 @@ static t_piece	*conv_coord_to_relative(t_piece *piece)
 int				place_piece(t_game *game, int **matrix, char **token)
 {
 	t_piece	*piece;
-	t_piece	*coords;
-
-/* begin debug print */
-	for (int y = 0; y < game->by ; y++)
-	{
-		for (int x = 0; x < game->bx ; x++)
-			ft_printf("%d\t", matrix[y][x]);
-		ft_printf("\n");
-	}
-/* end debug print */
 
 	piece = scan_token(token, game->p);
-	coords = conv_coord_to_relative(piece);
+	piece = conv_coord_to_relative(piece);
 	game->posy = -1;
 	game->posx = -1;
-	find_highest_sum(game, matrix, coords);
+	find_highest_sum(game, matrix, piece);
 	print_coordinates(game, piece);
 	/*
 	** free piece & token, delete matrix content

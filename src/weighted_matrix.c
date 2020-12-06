@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:39:51 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/06 21:38:21 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/06 22:29:29 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		weigh_row(t_game *game, int **matrix, int row, int col)
 	}
 	x = col;
 	val = matrix[row][col] - 1;
-	while (++x < game->by && val > 0)
+	while (++x < game->bx && val > 0)
 	{
 		if (matrix[row][x] >= 0 && matrix[row][x] < VERSUS)
 			matrix[row][x] = val;
@@ -79,15 +79,6 @@ static void		mark_players(t_game *game, char **board, int **matrix)
 {
 	int		y;
 	int		x;
-
-/* begin debug print
-	for (y = 1; y < game->by + 1 ; y++)
-	{
-		for (x = 4; x < game->bx + 4 ; x++)
-			ft_printf("%c\t", board[y][x]);
-		ft_printf("\n");
-	}
- end debug print */
 
 	y = 1;
 	x = 4;
