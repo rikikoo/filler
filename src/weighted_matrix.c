@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:39:51 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/10/31 14:57:07 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/06 21:38:21 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,36 @@ static void		weights(t_game *game, int **matrix, int row, int col)
 }
 
 /*
-** row index (y) starts from 1 because first row is not a part of the game area
+** Row index (y) starts from 1 because first row is not a part of the game area.
+** TODO:
+** Column index (x) starts from 4, because we assume every line to be numbered
+** 000, 001, 002, 003... followed by a space.
+** Program breaks if this format is not respected.
 */
-
 static void		mark_players(t_game *game, char **board, int **matrix)
 {
 	int		y;
 	int		x;
 
+/* begin debug print
+	for (y = 1; y < game->by + 1 ; y++)
+	{
+		for (x = 4; x < game->bx + 4 ; x++)
+			ft_printf("%c\t", board[y][x]);
+		ft_printf("\n");
+	}
+ end debug print */
+
 	y = 1;
-	x = 0;
+	x = 4;
 	while (y <= game->by)
 	{
 		while (board[y][x] != '\0')
 		{
 			if (board[y][x] == game->p || board[y][x] == game->p + 32)
-				matrix[y - 1][x] = PLAYER;
+				matrix[y - 1][x - 4] = PLAYER;
 			else if (board[y][x] == game->v || board[y][x] == game->v + 32)
-				matrix[y - 1][x] = VERSUS;
+				matrix[y - 1][x - 4] = VERSUS;
 			x++;
 		}
 		y++;

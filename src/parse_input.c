@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:08:03 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/10/31 14:57:25 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/01 19:25:16 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	store_dimensions(t_game *game, char *rows, char *columns, int board)
 ** Function's 3rd parameter "board" is set on call to true if we want to store
 ** the board's dimensions and false for the token's dimensions.
 */
-
 int			get_dimensions(char *line, t_game *game, int is_board)
 {
 	int		i;
@@ -66,7 +65,6 @@ int			get_dimensions(char *line, t_game *game, int is_board)
 ** Since the only number on the first line that the filler sends to the player
 ** is the player number, it's easy to check whether we are 1 or 2; 'O' or 'X'
 */
-
 int			get_player_character(t_game *game)
 {
 	char	*line;
@@ -92,7 +90,6 @@ int			get_player_character(t_game *game)
 ** that the token arrays have to be allocated memory on each call, because
 ** the tokens/pieces vary in size randomly.
 */
-
 char		**read_token(t_game *game)
 {
 	char	**token;
@@ -126,13 +123,13 @@ char		**read_token(t_game *game)
 ** On subsequent calls the arrays are over-written by the new board.
 ** The copied board is returned for further analysis.
 */
-
 char		**read_board(t_game *game)
 {
 	char	**board;
 	int		i;
 	int		ret;
 
+	board = NULL;
 	i = 0;
 	if (!game->ty || !game->tx)
 	{

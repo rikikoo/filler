@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:11:48 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/10/23 19:51:13 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/05 19:21:21 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct	s_gamedata
 	int		sum;
 	int		vy;
 	int		vx;
-	int		py;
-	int		px;
+	int		posy;
+	int		posx;
 }				t_game;
 
 typedef struct	s_piece
@@ -44,7 +44,7 @@ typedef struct	s_piece
 	int				x;
 	int				y;
 	char			c;
-	struct s_pieces	*next;
+	struct s_piece	*next;
 }				t_piece;
 
 char			**read_board(t_game *game);
@@ -53,5 +53,6 @@ int				get_player_character(t_game *game);
 int				get_dimensions(char *line, t_game *game, int is_board);
 void			fill_matrix(t_game *game, int **matrix, char **board);
 int				place_piece(t_game *game, int **matrix, char **token);
-t_piece			scan_token(char **token, char c);
+t_piece			*scan_token(char **token, char c);
+void			print_coordinates(t_game *game, t_piece *piece);
 #endif
