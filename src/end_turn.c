@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 17:40:24 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/11 20:13:37 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/11 20:25:51 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,16 @@ void	print_coordinates(t_game *game, t_piece *piece)
 
 void	free_coords(t_piece *coords)
 {
-	t_piece	tmp;
+	t_piece	*tmp;
 
 	while (coords->next != NULL)
 	{
-		tmp = *coords->next;
-		free(&coords);
-		coords = tmp.next;
+		tmp = coords;
+		coords = coords->next;
+		free(tmp);
 	}
-//	free(&coords);
+	tmp = coords;
+	free(tmp);
 }
 
 void	free_token(char **token)
@@ -42,7 +43,7 @@ void	free_token(char **token)
 	i = 0;
 	while (token[i])
 	{
-		free(&token[i]);
+		free(token[i]);
 		i++;
 	}
 }
