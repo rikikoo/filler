@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 19:11:55 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/06 22:29:41 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/11 19:49:10 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,22 @@ static t_piece	*conv_coord_to_relative(t_piece *piece)
 {
 	int		y_offset;
 	int		x_offset;
-	int		i;
 	t_piece	*head;
+	t_piece *tmp;
 
-	head = piece;
+	if (!(head = ((t_piece *)malloc(sizeof(t_piece)))))
+		return (NULL);
+	tmp = head;
 	y_offset = piece->y;
 	x_offset = piece->x;
-	i = 0;
 	while (piece->next != NULL)
 	{
-		piece->y = piece->y - y_offset;
-		piece->x = piece->x - x_offset;
+		tmp->y = piece->y - y_offset;
+		tmp->x = piece->x - x_offset;
 		piece = piece->next;
-		i++;
+		if (!(tmp->next = new_cell()))
+			return (NULL);
+		tmp = tmp->next;
 	}
 	return (head);
 }
@@ -86,15 +89,18 @@ static t_piece	*conv_coord_to_relative(t_piece *piece)
 int				place_piece(t_game *game, int **matrix, char **token)
 {
 	t_piece	*piece;
+	t_piece *coords;
 
-	piece = scan_token(token, game->p);
-	piece = conv_coord_to_relative(piece);
+	piece = scan_token(token);
+	coords = conv_coord_to_relative(piece);
 	game->posy = -1;
 	game->posx = -1;
-	find_highest_sum(game, matrix, piece);
+	find_highest_sum(game, matrix, coords);
 	print_coordinates(game, piece);
+	free_coords(piece);
+	free_coords(coords);
 	/*
-	** free piece & token, delete matrix content
+	** free token, delete matrix content
 	*/
 	return (1);
 }

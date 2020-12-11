@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/01 19:24:59 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/11 20:11:35 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,7 @@ int			main(void)
 		token = read_token(game);
 		fill_matrix(game, matrix, board);
 		place_piece(game, matrix, token);
+		free_token(token);
 	}
-	free(game);
-	free(matrix);
 	return (0);
 }

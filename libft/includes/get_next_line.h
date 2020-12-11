@@ -6,13 +6,13 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:13:48 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/09/08 22:29:48 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/11 19:27:57 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 64
+# define BUFF_SIZE 1
 # define FD_MAX 256
 
 # include <unistd.h>
