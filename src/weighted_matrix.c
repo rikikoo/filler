@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:39:51 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/06 22:29:29 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/13 11:18:06 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void		weights(t_game *game, int **matrix, int row, int col)
 }
 
 /*
-** Row index (y) starts from 1 because first row is not a part of the game area.
+** Row index (y) starts from 2 because first rows aren't a part of the game area.
 ** TODO:
 ** Column index (x) starts from 4, because we assume every line to be numbered
 ** 000, 001, 002, 003... followed by a space.
@@ -80,16 +80,16 @@ static void		mark_players(t_game *game, char **board, int **matrix)
 	int		y;
 	int		x;
 
-	y = 1;
+	y = 2;
 	x = 4;
-	while (y <= game->by)
+	while (y <= game->by + 1)
 	{
 		while (board[y][x] != '\0')
 		{
 			if (board[y][x] == game->p || board[y][x] == game->p + 32)
-				matrix[y - 1][x - 4] = PLAYER;
+				matrix[y - 2][x - 4] = PLAYER;
 			else if (board[y][x] == game->v || board[y][x] == game->v + 32)
-				matrix[y - 1][x - 4] = VERSUS;
+				matrix[y - 2][x - 4] = VERSUS;
 			x++;
 		}
 		y++;

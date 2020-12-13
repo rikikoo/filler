@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/11 20:11:35 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/13 11:55:38 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,11 @@ int			main(void)
 		return (-1);
 	if (!(matrix = init_matrix(game)))
 		return (-1);
+	if (!(board = (char **)malloc(sizeof(char *) * game->by + 2)))
+		return (-1);
 	while (1)
 	{
-		board = read_board(game);
+		board = read_board(game, board);
 		token = read_token(game);
 		fill_matrix(game, matrix, board);
 		place_piece(game, matrix, token);

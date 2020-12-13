@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 19:11:55 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/11 19:49:10 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/13 20:00:12 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int		get_sum(t_game *game, int **matrix, t_piece *piece)
 		if (matrix[piece->y + game->posy][piece->x + game->posx] < VERSUS && \
 		matrix[piece->y + game->posy][piece->x + game->posx] > PLAYER && \
 		overlap < 2)
-			sum = sum + matrix[piece->y][piece->x];
+			sum = sum + matrix[piece->y + game->posy][piece->x + game->posx];
 		piece = piece->next;
 	}
 	return (!overlap ? 0 : sum);

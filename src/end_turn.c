@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 17:40:24 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/11 20:25:51 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/13 11:08:09 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 void	print_coordinates(t_game *game, t_piece *piece)
 {
-	int		y;
-	int		x;
-
-	y = game->vy - piece->y;
-	x = game->vx - piece->x;
-	ft_printf("%d %d\n", y, x);
+	ft_printf("%d %d\n", game->vy - piece->y, game->vx - piece->x);
 }
 
 void	free_coords(t_piece *coords)
