@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:08:03 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/13 11:57:04 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/15 19:27:01 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,18 @@ char		**read_token(t_game *game)
 	int		ret;
 
 	if (get_next_line(0, &line) == -1)
-		return (0);
+		return (NULL);
 	if (get_dimensions(line, game, 0) == -1)
-		return (0);
+		return (NULL);
 	free(line);
 	if (!(token = (char **)malloc(sizeof(char *) * game->ty + 1)))
-		return (0);
+		return (NULL);
 	token[game->ty] = NULL;
 	i = 0;
 	while ((ret = get_next_line(0, &token[i])))
 	{
 		if (ret == -1)
-			return (0);
+			return (NULL);
 		i++;
 		if (i == game->ty)
 			break ;
@@ -118,10 +118,13 @@ char		**read_token(t_game *game)
 }
 
 /*
-** On the first call of read_board a 2d char array is created according to
-** previously acquired dimensions and the arrays are filled with what's given.
-** On subsequent calls the arrays are over-written by the new board.
-** The copied board is returned for further analysis.
+** On the very first call of read_board we skip the first line, because we
+** already read the board dimensions before going to the main loop.
+** On subsequent calls we get the dimensions in the loop, so we have to read
+** those as well, thus filling all arrays from the beginning.
+**
+** TODO:
+** figure out how to skip the dimensions and column number rows.
 */
 char		**read_board(t_game *game, char **board)
 {

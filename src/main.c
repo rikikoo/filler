@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/13 11:55:38 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/15 20:48:47 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** tx = token columns
 ** sum = highest value of where a piece successfully fit on the matrix
 ** vy, vx = position of the first cell of the piece that landed on game->sum,
-**			i.e. the pos that we will place our piece on the board (- offset)
+**			i.e. the pos that had the highest sum found
 ** posy, posx = position while searching through the matrix for the highest sum
 */
 static int	init_game(t_game *game)

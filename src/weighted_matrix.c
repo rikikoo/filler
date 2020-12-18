@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:39:51 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/13 11:18:06 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/15 19:28:48 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ static void		weights(t_game *game, int **matrix, int row, int col)
 }
 
 /*
-** Row index (y) starts from 2 because first rows aren't a part of the game area.
+** Row index (y) starts from 2 because first rows aren't a part of the game area
+**
 ** TODO:
 ** Column index (x) starts from 4, because we assume every line to be numbered
 ** 000, 001, 002, 003... followed by a space.
