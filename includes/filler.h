@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:11:48 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/18 20:15:54 by rkyttala         ###   ########.fr       */
+/*   Updated: 2020/12/18 20:42:24 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void			fill_matrix(t_game *game, int **matrix, char **board);
 int				place_piece(t_game *game, int **matrix, char **token);
 t_piece			*find_coordinates(char **token, int y, int x);
 t_piece			*new_cell(void);
-void			print_coordinates(t_game *game, t_piece *piece);
 void			free_list(t_piece *coords);
 void			free_token(char **token);
 #endif
