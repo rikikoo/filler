@@ -6,13 +6,13 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 15:49:54 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/18 20:31:19 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/02 18:41:54 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 
-t_piece	*new_cell(void)
+t_piece		*new_cell(void)
 {
 	t_piece	*piece;
 
@@ -24,7 +24,34 @@ t_piece	*new_cell(void)
 	return (piece);
 }
 
-t_piece	*find_coordinates(char **token, int y, int x)
+t_piece		*conv_coord_to_relative(t_piece *piece)
+{
+	int		y_offset;
+	int		x_offset;
+	t_piece	*head;
+	t_piece *tmp;
+
+	y_offset = piece->y;
+	x_offset = piece->x;
+	if (!(tmp = new_cell()))
+		return (NULL);
+	head = NULL;
+	while (piece->next != NULL)
+	{
+		tmp->y = piece->y - y_offset;
+		tmp->x = piece->x - x_offset;
+		if (!head)
+			head = tmp;
+		if (!(tmp->next = new_cell()))
+			return (NULL);
+		piece = piece->next;
+		tmp = tmp->next;
+	}
+	tmp = NULL;
+	return (head);
+}
+
+t_piece		*find_coordinates(char **token, int y, int x)
 {
 	t_piece *piece;
 	t_piece *head;

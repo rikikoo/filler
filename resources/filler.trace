@@ -1,6 +1,6 @@
-seed = 5428
+seed = 6178
+O: error on input
 X: error on input
-players/rkyttala.filler: Segfault at 124
-players/rkyttala.filler won
+players/grati.filler won
 Score:
-124AGAINST123
+0AGAINST52

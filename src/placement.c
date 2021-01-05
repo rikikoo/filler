@@ -6,13 +6,13 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 19:11:55 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/18 20:42:08 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:18:36 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 
-static int		get_sum(t_game *game, int **matrix, t_piece *piece)
+static int	get_sum(t_game *game, int **matrix, t_piece *piece)
 {
 	int		overlap;
 	int		sum;
@@ -21,9 +21,9 @@ static int		get_sum(t_game *game, int **matrix, t_piece *piece)
 	sum = 0;
 	while (piece->next != NULL)
 	{
-		if (game->posy + piece->y > game->by - 1)
+		if (game->posy + piece->y >= game->by)
 			return (0);
-		if (game->posx + piece->x < 0 || game->posx + piece->x > game->bx)
+		if (game->posx + piece->x < 0 || game->posx + piece->x >= game->bx)
 			return (0);
 		if (matrix[piece->y + game->posy][piece->x + game->posx] == PLAYER)
 			overlap++;
@@ -39,7 +39,7 @@ static int		get_sum(t_game *game, int **matrix, t_piece *piece)
 	return (!overlap ? 0 : sum);
 }
 
-static void		find_highest_sum(t_game *game, int **matrix, t_piece *coords)
+static int	find_highest_sum(t_game *game, int **matrix, t_piece *coords)
 {
 	int		sum;
 	t_piece	*head;
@@ -63,45 +63,21 @@ static void		find_highest_sum(t_game *game, int **matrix, t_piece *coords)
 		}
 		game->posx = -1;
 	}
+	return (sum > 0 ? 1 : 0);
 }
 
-static t_piece	*conv_coord_to_relative(t_piece *piece)
-{
-	int		y_offset;
-	int		x_offset;
-	t_piece	*head;
-	t_piece *tmp;
-
-	y_offset = piece->y;
-	x_offset = piece->x;
-	if (!(tmp = new_cell()))
-		return (NULL);
-	head = NULL;
-	while (piece->next != NULL)
-	{
-		tmp->y = piece->y - y_offset;
-		tmp->x = piece->x - x_offset;
-		if (!head)
-			head = tmp;
-		if (!(tmp->next = new_cell()))
-			return (NULL);
-		piece = piece->next;
-		tmp = tmp->next;
-	}
-	tmp = NULL;
-	return (head);
-}
-
-int				place_piece(t_game *game, int **matrix, char **token)
+int			place_piece(t_game *game, int **matrix, char **token)
 {
 	t_piece	*piece;
 	t_piece *coords;
+	int		ret;
 
 	piece = find_coordinates(token, -1, -1);
 	coords = conv_coord_to_relative(piece);
-	find_highest_sum(game, matrix, coords);
-	ft_printf("%d %d\n", game->vy - piece->y, game->vx - piece->x);
+	ret = find_highest_sum(game, matrix, coords);
 	free_list(piece);
 	free_list(coords);
-	return (1);
+	free_arrays(token);
+	ft_printf("%d %d\n", game->vy - piece->y, game->vx - piece->x);
+	return (ret);
 }

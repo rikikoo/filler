@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:11:48 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/18 20:42:24 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/03 18:17:56 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 # define FILLER_H
 # define PLAYER -1
 # define VERSUS 1000
+
 /*
-# include <sys/types.h>
-# include <sys/uio.h>
+**# include <sys/types.h>
+**# include <sys/uio.h>
 */
 # include <unistd.h>
 # include <stdlib.h>
@@ -53,7 +54,8 @@ int				get_dimensions(char *line, t_game *game, int is_board);
 void			fill_matrix(t_game *game, int **matrix, char **board);
 int				place_piece(t_game *game, int **matrix, char **token);
 t_piece			*find_coordinates(char **token, int y, int x);
+t_piece			*conv_coord_to_relative(t_piece *piece);
 t_piece			*new_cell(void);
 void			free_list(t_piece *coords);
-void			free_token(char **token);
+void			free_arrays(char **arr);
 #endif

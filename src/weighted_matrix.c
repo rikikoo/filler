@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:39:51 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/15 19:28:48 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/03 18:28:37 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,14 @@ static void		weights(t_game *game, int **matrix, int row, int col)
 /*
 ** Row index (y) starts from 2 because first rows aren't a part of the game area
 **
-** TODO:
 ** Column index (x) starts from 4, because we assume every line to be numbered
-** 000, 001, 002, 003... followed by a space.
+** 000, 001, 002, 003,... followed by a space.
 ** Program breaks if this format is not respected.
+**
+** TODO:
+** make board reading work on arbitrary formats?
 */
+
 static void		mark_players(t_game *game, char **board, int **matrix)
 {
 	int		y;

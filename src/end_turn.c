@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 17:40:24 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/18 20:42:16 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:21:14 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,18 @@ void	free_list(t_piece *coords)
 	free(tmp);
 }
 
-void	free_token(char **token)
+void	free_arrays(char **arr)
 {
 	int		i;
 
 	i = 0;
-	while (token[i])
+	while (arr[i])
 	{
-		free(token[i]);
+		if (arr[i])
+		{
+			free(arr[i]);
+			arr[i] = NULL;
+		}
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2020/12/15 20:48:47 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:07:06 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 **			i.e. the pos that had the highest sum found
 ** posy, posx = position while searching through the matrix for the highest sum
 */
+
 static int	init_game(t_game *game)
 {
 	char	*line;
@@ -84,6 +85,7 @@ static int	**init_matrix(t_game *game)
 **	-- update int matrix according to opponent's position
 **	-- place token (i.e. calculate position of piece and output its coordinates)
 */
+
 int			main(void)
 {
 	t_game	*game;
@@ -97,15 +99,16 @@ int			main(void)
 		return (-1);
 	if (!(matrix = init_matrix(game)))
 		return (-1);
-	if (!(board = (char **)malloc(sizeof(char *) * game->by + 2)))
+	if (!(board = (char **)malloc(sizeof(char *) * game->by + 3)))
 		return (-1);
+	board[game->by + 2] = NULL;
 	while (1)
 	{
 		board = read_board(game, board);
 		token = read_token(game);
 		fill_matrix(game, matrix, board);
-		place_piece(game, matrix, token);
-		free_token(token);
+		if (!(place_piece(game, matrix, token)))
+			break ;
 	}
 	return (0);
 }
