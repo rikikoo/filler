@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:11:48 by rkyttala          #+#    #+#             */
-/*   Updated: 2021/01/03 18:17:56 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/08 21:15:17 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct	s_piece
 	struct s_piece	*next;
 }				t_piece;
 
-char			**read_board(t_game *game, char **board);
+char			**read_board(t_game *game);
 char			**read_token(t_game *game);
 int				get_player_character(t_game *game);
 int				get_dimensions(char *line, t_game *game, int is_board);

@@ -353,7 +353,7 @@ class Trace
 			else
 				player_win_trace(players[1].file_name)
 			end
-			trace_msg("Score:\n#{players[0].score.to_s}AGAINST#{players[1].score.to_s}\n")
+              trace_msg("Score:\n#{players[0].score.to_s} AGAINST #{players[1].score.to_s}\n")
 		end
 		@file.close
 	end

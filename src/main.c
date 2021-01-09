@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2021/01/05 16:07:06 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/09 15:12:31 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 
 static int	init_game(t_game *game)
 {
-	char	*line;
-
 	game->by = 0;
 	game->bx = 0;
 	game->p = 0;
@@ -42,11 +40,6 @@ static int	init_game(t_game *game)
 	game->posx = 0;
 	if (get_player_character(game) == -1)
 		return (-1);
-	if (get_next_line(0, &line) == -1)
-		return (-1);
-	if (get_dimensions(line, game, 1) == -1)
-		return (-1);
-	free(line);
 	return (0);
 }
 
@@ -97,16 +90,16 @@ int			main(void)
 		return (-1);
 	if (init_game(game) == -1)
 		return (-1);
+	board = read_board(game);
 	if (!(matrix = init_matrix(game)))
 		return (-1);
-	if (!(board = (char **)malloc(sizeof(char *) * game->by + 3)))
-		return (-1);
-	board[game->by + 2] = NULL;
 	while (1)
 	{
-		board = read_board(game, board);
+		if (game->ty != 0)
+			board = read_board(game);
 		token = read_token(game);
 		fill_matrix(game, matrix, board);
+		free_arrays(board);
 		if (!(place_piece(game, matrix, token)))
 			break ;
 	}

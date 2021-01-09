@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:08:03 by rkyttala          #+#    #+#             */
-/*   Updated: 2021/01/03 20:21:26 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/09 16:44:40 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,19 @@ int			get_player_character(t_game *game)
 		game->p = 'O';
 		game->v = 'X';
 	}
-	else
+	else if (ft_strchr(line, '2'))
 	{
 		game->p = 'X';
 		game->v = 'O';
 	}
+	else
+		return (-1);
 	free(line);
 	return (0);
 }
 
 /*
-** read_token does basically the same thing as read_board with the exception
-** that the token arrays have to be allocated memory on each call, because
-** the tokens/pieces vary in size randomly.
+** read_token does basically the same thing as read_board
 */
 
 char		**read_token(t_game *game)
@@ -121,33 +121,32 @@ char		**read_token(t_game *game)
 }
 
 /*
-** On the very first call of read_board we skip the first line, because we
-** already read the board dimensions before going to the main loop.
-** On subsequent calls we get the dimensions in the loop, so we have to read
-** those as well, thus filling all arrays from the beginning.
-**
 ** TODO:
 ** figure out how to skip the dimensions and column number rows.
 */
 
-char		**read_board(t_game *game, char **board)
+char		**read_board(t_game *game)
 {
+	char	**board;
+	char	*line;
 	int		i;
 	int		ret;
 
-	if (!game->ty || !game->tx)
-	{
-		i = 1;
-		board[0] = strdup("0 0");
-	}
-	else
-		i = 0;
+	if (get_next_line(0, &line) == -1)
+		return (NULL);
+	if (get_dimensions(line, game, 1) == -1)
+		return (NULL);
+	free(line);
+	if (!(board = (char **)malloc(sizeof(char *) * game->by + 2)))
+		return (NULL);
+	board[game->by + 1] = NULL;
+	i = 0;
 	while ((ret = get_next_line(0, &board[i])))
 	{
 		if (ret == -1)
 			return (NULL);
 		i++;
-		if (i == game->by + 2)
+		if (i == game->by + 1)
 			break ;
 	}
 	return (board);
