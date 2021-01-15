@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:11:48 by rkyttala          #+#    #+#             */
-/*   Updated: 2021/01/08 21:15:17 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/15 19:19:14 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int				get_player_character(t_game *game);
 int				get_dimensions(char *line, t_game *game, int is_board);
 void			fill_matrix(t_game *game, int **matrix, char **board);
 int				place_piece(t_game *game, int **matrix, char **token);
-t_piece			*find_coordinates(char **token, int y, int x);
-t_piece			*conv_coord_to_relative(t_piece *piece);
+void			find_coordinates(char **token, t_piece *piece);
+void			conv_coord_to_relative(t_piece *piece, t_piece *coords);
 t_piece			*new_cell(void);
 void			free_list(t_piece *coords);
 void			free_arrays(char **arr);
