@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 19:11:55 by rkyttala          #+#    #+#             */
-/*   Updated: 2021/01/15 18:06:38 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/22 17:39:14 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	get_sum(t_game *game, int **matrix, t_piece *piece)
 {
-	int		overlap;
-	int		sum;
+	int	overlap;
+	int	sum;
 
 	overlap = 0;
 	sum = 0;
@@ -74,7 +74,7 @@ int			place_piece(t_game *game, int **matrix, char **token)
 
 	if (!(piece = new_cell()))
 		return (-1);
-	find_coordinates(token, piece);
+	find_coordinates(token, piece, game->ty);
 	if (!(coords = new_cell()))
 		return (-1);
 	conv_coord_to_relative(piece, coords);
@@ -82,6 +82,6 @@ int			place_piece(t_game *game, int **matrix, char **token)
 	ft_printf("%d %d\n", game->vy - piece->y, game->vx - piece->x);
 	free_list(piece);
 	free_list(coords);
-	free_arrays(token);
+	free_arrays(token, game->ty);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 20:08:03 by rkyttala          #+#    #+#             */
-/*   Updated: 2021/01/09 16:44:40 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/22 17:33:19 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,8 @@ char		**read_token(t_game *game)
 	if (get_dimensions(line, game, 0) == -1)
 		return (NULL);
 	free(line);
-	if (!(token = (char **)malloc(sizeof(char *) * game->ty + 1)))
+	if (!(token = (char **)malloc(sizeof(char *) * game->ty)))
 		return (NULL);
-	token[game->ty] = NULL;
 	i = 0;
 	while ((ret = get_next_line(0, &token[i])))
 	{
@@ -137,9 +136,8 @@ char		**read_board(t_game *game)
 	if (get_dimensions(line, game, 1) == -1)
 		return (NULL);
 	free(line);
-	if (!(board = (char **)malloc(sizeof(char *) * game->by + 2)))
+	if (!(board = (char **)malloc(sizeof(char *) * game->by + 1)))
 		return (NULL);
-	board[game->by + 1] = NULL;
 	i = 0;
 	while ((ret = get_next_line(0, &board[i])))
 	{

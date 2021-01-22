@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:39:51 by rkyttala          #+#    #+#             */
-/*   Updated: 2021/01/09 16:37:16 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/15 20:55:56 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void		weigh_row(t_game *game, int **matrix, int row, int col)
 {
-	int		x;
-	int		val;
+	int	x;
+	int	val;
 
 	x = col;
 	val = matrix[row][col] - 1;
@@ -41,8 +41,8 @@ static void		weigh_row(t_game *game, int **matrix, int row, int col)
 
 static void		weights(t_game *game, int **matrix, int row, int col)
 {
-	int		y;
-	int		val;
+	int	y;
+	int	val;
 
 	y = row + 1;
 	val = VERSUS - 1;
@@ -81,8 +81,8 @@ static void		weights(t_game *game, int **matrix, int row, int col)
 
 static void		mark_players(t_game *game, char **board, int **matrix)
 {
-	int		y;
-	int		x;
+	int	y;
+	int	x;
 
 	y = 1;
 	x = 4;
@@ -103,8 +103,8 @@ static void		mark_players(t_game *game, char **board, int **matrix)
 
 void			fill_matrix(t_game *game, int **matrix, char **board)
 {
-	int		y;
-	int		x;
+	int	y;
+	int	x;
 
 	y = 0;
 	x = 0;

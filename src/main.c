@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 16:08:14 by rkyttala          #+#    #+#             */
-/*   Updated: 2021/01/09 15:12:31 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/22 18:01:39 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static int	init_game(t_game *game)
 
 static int	**init_matrix(t_game *game)
 {
-	int		y;
-	int		x;
-	int		**matrix;
+	int	y;
+	int	x;
+	int	**matrix;
 
 	y = 0;
 	if (!(matrix = (int **)malloc(sizeof(int *) * game->by)))
@@ -99,7 +99,7 @@ int			main(void)
 			board = read_board(game);
 		token = read_token(game);
 		fill_matrix(game, matrix, board);
-		free_arrays(board);
+		free_arrays(board, game->by + 1);
 		if (!(place_piece(game, matrix, token)))
 			break ;
 	}

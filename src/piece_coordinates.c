@@ -6,7 +6,7 @@
 /*   By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 15:49:54 by rkyttala          #+#    #+#             */
-/*   Updated: 2021/01/15 19:22:25 by rkyttala         ###   ########.fr       */
+/*   Updated: 2021/01/22 17:37:06 by rkyttala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,42 +26,31 @@ t_piece	*new_cell(void)
 
 void	conv_coord_to_relative(t_piece *piece, t_piece *coords)
 {
-	int		y_offset;
-	int		x_offset;
-/*	t_piece	*head;
-	t_piece *tmp; */
+	int	y_offset;
+	int	x_offset;
 
 	y_offset = piece->y;
 	x_offset = piece->x;
-/*	if (!(tmp = new_cell()))
-		return (NULL);
-	head = NULL; */
 	while (piece->next != NULL)
 	{
 		coords->y = piece->y - y_offset;
 		coords->x = piece->x - x_offset;
-/*		if (!head)
-			head = tmp; */
 		if (!(coords->next = new_cell()))
 			return ;
 		piece = piece->next;
 		coords = coords->next;
 	}
-	free(coords);
-	coords = NULL;
+	coords->next = NULL;
 }
 
-void	find_coordinates(char **token, t_piece *piece)
+void	find_coordinates(char **token, t_piece *piece, int rows)
 {
-	int		y;
-	int		x;
+	int	y;
+	int	x;
 
 	y = -1;
 	x = -1;
-/*	if (!(piece = new_cell()))
-		return (NULL);
-	head = NULL; */
-	while (token[++y] != NULL)
+	while (++y < rows)
 	{
 		while (token[y][++x] != '\0')
 		{
@@ -71,13 +60,10 @@ void	find_coordinates(char **token, t_piece *piece)
 				piece->x = x;
 				if (!(piece->next = new_cell()))
 					return ;
-/*				if (!head)
-					head = piece; */
 				piece = piece->next;
 			}
 		}
 		x = -1;
 	}
-	free(piece);
-	piece = NULL;
+	piece->next = NULL;
 }
