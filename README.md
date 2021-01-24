@@ -3,7 +3,7 @@
 
 *NOT TO BE CONFUSED WITH ANOTHER SCHOOL PROJECT: [fillit](https://github.com/rikikoo/fillit)*
 
-**ABOUT FILLER**
+## ABOUT FILLER
 The program compiled by the Makefile is a virtual "player" designed to compete against other virtual players in the game of filler, which is run in the virtual machine `resources/filler_vm`.
 
 The way I see it, filler is a sort of augmented tic-tac-toe, where each player is given a random "piece" that they have to fit onto the playing field (arbitrarily sized 2D board) until no more pieces can be placed. The player that was able to place more pieces wins.
@@ -86,3 +86,54 @@ Plateau 14 30:
 
 [...]
 ```
+
+## ABOUT THE PROJECT
+First of all, this project -- like all other school projects -- was written in accordance with the 42 norm (e.g. no `for` loops, max 25 lines per function, one variable declaration per line, no libc functions allowed except for `read` `write` `malloc` `free`, ...)
+
+I tried different approaches to make sure my algorithm would end up with more placed pieces, ranging from a "compass" method where the program would check the direction of the opponent relative to my pieces to a method where pieces would be first placed towards the side of the board where the opponent is and then where there's more clear space on the board...
+After struggling with these approaches I heard of a "heatmap" approach that turned out to be the most simple and effective.
+
+The heatmap is an int representation of the playing board, updated on each turn, where 
+  - opponent-filled cells are given a high positive value (1000 in the current version, because the board most likely won't be over 1000 by 1000 cells)
+  - cells filled by my pieces are given a negative value
+  - The empty cells are given a value that decreaces by one outwards from all the opponent's cells.
+
+After that it's easy to try and place the piece on the heatmap where the current piece's cells land on cells on the map that have the the highest sum. This way the highest sum must be closest to my opponent. I want to get close to the opponent so that I could surround his pieces with mine, so that the rest of the board was reachable only by my pieces.
+
+*EXAMPLE:*
+Here the opponent is given a value of 9 and my player value of 0. Idea is the same even though the values aren't.
+
+Board:
+```
+    01234567
+000 ...O....
+001 ........
+002 ........
+003 ........
+004 .......X
+```
+Heatmap:
+```
+    11102345
+    11123456
+    11234567
+    12345678
+    23456789
+```
+The piece we need to place:
+```
+***
+.*.
+.**
+```
+
+The highest sum is achieved when placing the piece like so:
+```
+    01234567
+000 ...ooo..
+001 ....o...
+002 ....oo..
+003 ........
+004 .......X
+```
+Which would correspond to 0+2+3+3+4+5 = 17 on the heatmap.
