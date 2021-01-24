@@ -96,9 +96,9 @@ After struggling with these approaches I heard of a "heatmap" approach that turn
 The heatmap is an int representation of the playing board, updated on each turn, where 
   - opponent-filled cells are given a high positive value (1000 in the current version, because the board most likely won't be over 1000 by 1000 cells)
   - cells filled by my pieces are given a negative value
-  - The empty cells are given a value that decreaces by one outwards from all the opponent's cells.
+  - The empty cells are given a value that decreases by one outwards from all of the opponent's cells.
 
-After that it's easy to try and place the piece on the heatmap where the current piece's cells land on cells on the map that have the the highest sum. This way the highest sum must be closest to my opponent. I want to get close to the opponent so that I could surround his pieces with mine, so that the rest of the board was reachable only by my pieces.
+After that it's easy to try and place the piece on the heatmap where the current piece's cells land on cells on the map that have the the highest sum. This way the highest sum must be closest to my opponent. I want to get close to the opponent so that I could surround their pieces with mine, so that the rest of the board was reachable only by my pieces.
 
 *EXAMPLE:*
 Here the opponent is given a value of 9 and my player value of 0. Idea is the same even though the values aren't.
@@ -136,4 +136,16 @@ The highest sum is achieved when placing the piece like so:
 003 ........
 004 .......X
 ```
-Which would correspond to 0+2+3+3+4+5 = 17 on the heatmap.
+Which would correspond to 0+2+3+3+4+5 = 17 on the heatmap. Any other placement would result in a lower sum.
+
+## Usage
+`make all`
+`cd resources`
+assuming my algo is player 1 and we are playing against "superjeannot" and we play on a medium size map
+`./filler_vm -p1 ../rkyttala.filler -p2 players/superjeannot.filler -f maps/map01`
+
+***the filler virtual machine will not run unless you are in the directory where it's located.** I haven't bothered to figure out why that's the case.
+
+If you want to see the game being played out much more prettily than on a strobe command line, just pipe the last command to `visual`, like so (when in the `resources` directory):
+`./filler_vm -p1 ../rkyttala.filler -p2 players/superjeannot.filler -f maps/map01 | ./visual`
+
