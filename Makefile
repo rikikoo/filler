@@ -6,34 +6,61 @@
 #    By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 18:21:14 by rkyttala          #+#    #+#              #
-#    Updated: 2020/12/01 20:16:32 by rkyttala         ###   ########.fr        #
+#    Updated: 2021/01/24 19:36:19 by rkyttala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = main.c parse_input.c weighted_matrix.c piece_coordinates.c placement.c
+# Thanks to Neyl JABER (https://stackexchange.com/users/16329214/xenos)
+# from the 42 network for this Makefile template.
 
-OBJ = $(SRC_NAME:%.c=%.o)
+S = src/
+O = obj/
+I = includes/
 
-SRC_DIR = src/
+SRC =	$Smain.c \
+		$Sparse_input.c \
+		$Sweighted_matrix.c \
+		$Spiece_coordinates.c \
+		$Splacement.c \
+		$Sfree.c
 
-OBJ_DIR = obj/
+OBJ = $(SRC:$S%=$O%.o)
 
-INC = includes/
-
-HEADER = filler.h
+INC = $I
 
 LIB = ../libft/libft.a
 
-FLAGS = -Wall -Wextra -Werror
+CCOMP = gcc
+
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = rkyttala.filler
+
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	make -C ../libft/
-	gcc $(prefix )
+	@make -C ../libft/
+	$(CCOMP) $(CFLAGS) $^ $(LIB) -o $@ -I $(INC)
 
-$(OBJ):
-	mkdir $(OBJ_DIR)
-	gcc -c $(FLAGS) $(prefix: SRC_DIR)
+$O:
+	@mkdir -p $@
+
+$(OBJ): | $O
+
+$(OBJ): $O%.o: $S%
+	$(CCOMP) $(CFLAGS) -c $< -o $@ -I $(INC)
+
+cleanobj:
+	rm $(wildcard $(OBJ))
+
+cleanobjdir: cleanobj
+	rm -rf $O
+
+clean: cleanobjdir
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
