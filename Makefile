@@ -6,7 +6,7 @@
 #    By: rkyttala <rkyttala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 18:21:14 by rkyttala          #+#    #+#              #
-#    Updated: 2021/01/24 19:36:19 by rkyttala         ###   ########.fr        #
+#    Updated: 2021/01/24 20:11:14 by rkyttala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,17 +18,17 @@ O = obj/
 I = includes/
 
 SRC =	$Smain.c \
-		$Sparse_input.c \
-		$Sweighted_matrix.c \
-		$Spiece_coordinates.c \
-		$Splacement.c \
-		$Sfree.c
+	$Sparse_input.c \
+	$Sweighted_matrix.c \
+	$Spiece_coordinates.c \
+	$Splacement.c \
+	$Sfree.c
 
 OBJ = $(SRC:$S%=$O%.o)
 
 INC = $I
 
-LIB = ../libft/libft.a
+LIB = libft/libft.a
 
 CCOMP = gcc
 
@@ -40,10 +40,6 @@ NAME = rkyttala.filler
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@make -C ../libft/
-	$(CCOMP) $(CFLAGS) $^ $(LIB) -o $@ -I $(INC)
-
 $O:
 	@mkdir -p $@
 
@@ -52,13 +48,13 @@ $(OBJ): | $O
 $(OBJ): $O%.o: $S%
 	$(CCOMP) $(CFLAGS) -c $< -o $@ -I $(INC)
 
-cleanobj:
-	rm $(wildcard $(OBJ))
+$(NAME): $(OBJ)
+	@make -C libft/
+	@make -C libft/ clean
+	$(CCOMP) $(CFLAGS) $^ $(LIB) -o $@ -I $(INC)
 
-cleanobjdir: cleanobj
+clean:
 	rm -rf $O
-
-clean: cleanobjdir
 
 fclean: clean
 	rm -f $(NAME)
