@@ -3,7 +3,7 @@
 
 *NOT TO BE CONFUSED WITH ANOTHER SCHOOL PROJECT: [fillit](https://github.com/rikikoo/fillit)*
 
-## ABOUT FILLER
+## ABOUT filler
 The program compiled by the Makefile is a virtual "player" designed to compete against other virtual players in the game of filler, which is run in the virtual machine `resources/filler_vm`.
 
 The way I see it, filler is a sort of augmented tic-tac-toe, where each player is given a random "piece" that they have to fit onto the playing field (an arbitrarily sized 2D board) until no more pieces can be placed. The player that was able to place more pieces wins.
@@ -144,11 +144,12 @@ Which would correspond to 0+2+3+3+4+5 = 17 on the heatmap. Any other placement w
 `cd resources`
 
 assuming my algo is player 1 and we are playing against "superjeannot" and we play on a medium size map
+
 `./filler_vm -p1 ../rkyttala.filler -p2 players/superjeannot.filler -f maps/map01`
 
-***the filler virtual machine will not run unless you are in the directory where it's located.** I haven't bothered to figure out why that's the case.
+**the filler virtual machine will not run unless you are in the directory where it's located.** I haven't bothered to figure out why that's the case.
 
 If you want to see the game being played out much more prettily than on a strobe command line, just pipe the last command to `visual`, like so (when in the `resources` directory):
 `./filler_vm -p1 ../rkyttala.filler -p2 players/superjeannot.filler -f maps/map01 | ./visual`
 
-The visualizer was made by the awesome avocadohooman
+The visualizer was made by the awesome [avocadohooman](https://github.com/avocadohooman/42-filler/tree/master/visualiser), a fellow student. 
