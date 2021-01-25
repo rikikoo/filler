@@ -6,13 +6,13 @@
 ## ABOUT FILLER
 The program compiled by the Makefile is a virtual "player" designed to compete against other virtual players in the game of filler, which is run in the virtual machine `resources/filler_vm`.
 
-The way I see it, filler is a sort of augmented tic-tac-toe, where each player is given a random "piece" that they have to fit onto the playing field (arbitrarily sized 2D board) until no more pieces can be placed. The player that was able to place more pieces wins.
+The way I see it, filler is a sort of augmented tic-tac-toe, where each player is given a random "piece" that they have to fit onto the playing field (an arbitrarily sized 2D board) until no more pieces can be placed. The player that was able to place more pieces wins.
 
 *GAME RULES:*
   - On the board, the starting points of the players are randomly decided. P1 gets to place the first piece.
   - Both players take turns placing pieces. Player 1 is `O` and player 2 is `X`.
   - On each turn, the player is given a random piece by the `filler_vm` in a "token" in which the actual piece is. The token's size varies and the shape of the piece in the token is random on each turn.
-  - One part/cell of the piece has to overlap with exactly one cell of previously placed pieces of the same player.
+  - One cell of the piece has to overlap with exactly one cell of previously placed pieces of the same player.
   - Players have to give the coordinates of the _token's_ top-left corner to `stdout`. Those coordinates can be outside the board.
 
 *EXAMPLE GAME:*
@@ -93,7 +93,7 @@ First of all, this project -- like all other school projects -- was written in a
 I tried different approaches to make sure my algorithm would end up with more placed pieces, ranging from a "compass" method where the program would check the direction of the opponent relative to my pieces to a method where pieces would be first placed towards the side of the board where the opponent is and then where there's more clear space on the board...
 After struggling with these approaches I heard of a "heatmap" approach that turned out to be the most simple and effective.
 
-The heatmap is an int representation of the playing board, updated on each turn, where 
+The heatmap is an `int` representation of the playing board, updated on each turn, where 
   - opponent-filled cells are given a high positive value (1000 in the current version, because the board most likely won't be over 1000 by 1000 cells)
   - cells filled by my pieces are given a negative value
   - The empty cells are given a value that decreases by one outwards from all of the opponent's cells.
@@ -114,11 +114,11 @@ Board:
 ```
 Heatmap:
 ```
-    11102345
-    11123456
-    11234567
-    12345678
-    23456789
+    1 1 1 0 2 3 4 5
+    1 1 1 2 3 4 5 6
+    1 1 2 3 4 5 6 7
+    1 2 3 4 5 6 7 8
+    2 3 4 5 6 7 8 9 
 ```
 The piece we need to place:
 ```
@@ -140,7 +140,9 @@ Which would correspond to 0+2+3+3+4+5 = 17 on the heatmap. Any other placement w
 
 ## Usage
 `make all`
+
 `cd resources`
+
 assuming my algo is player 1 and we are playing against "superjeannot" and we play on a medium size map
 `./filler_vm -p1 ../rkyttala.filler -p2 players/superjeannot.filler -f maps/map01`
 
@@ -149,3 +151,4 @@ assuming my algo is player 1 and we are playing against "superjeannot" and we pl
 If you want to see the game being played out much more prettily than on a strobe command line, just pipe the last command to `visual`, like so (when in the `resources` directory):
 `./filler_vm -p1 ../rkyttala.filler -p2 players/superjeannot.filler -f maps/map01 | ./visual`
 
+The visualizer was made by the awesome avocadohooman
