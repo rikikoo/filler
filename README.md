@@ -105,12 +105,12 @@ Here the opponent is given a value of 9 and my player value of 0. Idea is the sa
 
 Board:
 ```
-    01234567
-000 ...O....
-001 ........
-002 ........
-003 ........
-004 .......X
+    0 1 2 3 4 5 6 7
+000 . . . O . . . .
+001 . . . . . . . .
+002 . . . . . . . .
+003 . . . . . . . .
+004 . . . . . . . X
 ```
 Heatmap:
 ```
@@ -129,12 +129,12 @@ The piece we need to place:
 
 The highest sum is achieved when placing the piece like so:
 ```
-    01234567
-000 ...ooo..
-001 ....o...
-002 ....oo..
-003 ........
-004 .......X
+    0 1 2 3 4 5 6 7
+000 . . . o o o . .
+001 . . . . o . . .
+002 . . . . o o . .
+003 . . . . . . . .
+004 . . . . . . . X
 ```
 Which would correspond to 0+2+3+3+4+5 = 17 on the heatmap. Any other placement would result in a lower sum.
 
@@ -147,9 +147,9 @@ assuming my algo is player 1 and we are playing against "superjeannot" and we pl
 
 `./filler_vm -p1 ../rkyttala.filler -p2 players/superjeannot.filler -f maps/map01`
 
-**the filler virtual machine will not run unless you are in the directory where it's located.** I haven't bothered to figure out why that's the case.
+**the filler virtual machine (`filler_vm`) will not run unless you are in the directory where it's located (`resources`) .** I haven't bothered to figure out why that's the case.
 
 If you want to see the game being played out much more prettily than on a strobe command line, just pipe the last command to `visual`, like so (when in the `resources` directory):
 `./filler_vm -p1 ../rkyttala.filler -p2 players/superjeannot.filler -f maps/map01 | ./visual`
 
-The visualizer was made by the awesome [avocadohooman](https://github.com/avocadohooman/42-filler/tree/master/visualiser), a fellow student. 
+The visualizer was made by the awesome [avocadohooman](https://github.com/avocadohooman/42-filler/tree/master/visualiser), a fellow student at Hive Helsinki. 
